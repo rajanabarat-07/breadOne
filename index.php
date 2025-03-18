@@ -29,6 +29,12 @@ if (isset($_POST["search"])) {
             line-height: 1.4em;
             /* Sesuaikan tinggi setiap baris */
         }
+
+        .card:hover {
+            transform: scale(1.10);
+            transition: all 0.1s ease-in-out;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
     </style>
 </head>
 
@@ -40,7 +46,7 @@ if (isset($_POST["search"])) {
             <?php foreach ($product as $row): ?>
                 <div class="col">
                     <a href="product-detail.php?id=<?= $row['id_product']; ?>" class="text-decoration-none">
-                        <div class="card h-100 w-100">
+                        <div class="card h-100 w-100 border shadow-sm">
                             <div class="ratio ratio-1x1">
                                 <img src="Images/<?= $row['image_product']; ?>" alt="Roti Fresh" class="img-fluid rounded">
                             </div>
@@ -54,6 +60,7 @@ if (isset($_POST["search"])) {
                         </div>
                     </a>
                 </div>
+
             <?php endforeach; ?>
         </div>
     </div>

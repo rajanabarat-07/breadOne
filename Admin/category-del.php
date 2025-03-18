@@ -12,8 +12,8 @@ if (empty($id_category)) {
 }
 
 // Menghapus data dari database
-$sql = "DELETE FROM `bo-category` WHERE id_category = '$id_category'";
-if ($conn->query($sql) === TRUE) {
+$category = "DELETE FROM `bo-category` WHERE id_category = '$id_category'";
+if ($conn->query($category) === TRUE) {
     echo "<script>alert('Kategori berhasil dihapus!'); window.location.href = 'category-index.php';</script>";
 } else {
     echo "<script>alert('Gagal menghapus kategori!'); window.history.back();</script>";
