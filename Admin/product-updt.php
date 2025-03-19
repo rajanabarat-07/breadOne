@@ -3,7 +3,11 @@ include "../config.php";
 
 $id_product = $_GET["id"];
 
+// Ambil data produk berdasarkan ID
 $product = query("SELECT * FROM `bo-product` WHERE id_product = $id_product")[0];
+
+// Ambil daftar kategori
+$category = query("SELECT * FROM `bo-category` ORDER BY name_category ASC");
 
 if (isset($_POST['submit'])) {
     if (updt($_POST) > 0) {
@@ -17,7 +21,7 @@ if (isset($_POST['submit'])) {
         echo "
                 <script>
                     alert('Produk gagal diperbarui');
-                    document.location.href = 'product-updt.php';
+                    document.location.href = 'product-updt.php?id=$id_product';
                 </script>
             ";
     }
@@ -45,33 +49,35 @@ if (isset($_POST['submit'])) {
 
                     <div class="mb-3 text-center">
                         <label for="image_product" class="form-label">Gambar Produk</label><br>
-                        <img src="../Images/<?= $product['image_product']; ?>" class="img-fluid rounded" width="150"
-                            alt="Gambar Produk"><br>
+                        <img src="../Images/<?= htmlspecialchars($product['image_product']); ?>" class="img-fluid rounded" width="150" alt="Gambar Produk"><br>
                         <input type="file" class="form-control mt-2" name="image_product" id="image_product">
                     </div>
 
                     <div class="mb-3">
                         <label for="name_product" class="form-label">Nama Produk</label>
-                        <input type="text" class="form-control" name="name_product" id="name_product" required
-                            value="<?= $product["name_product"] ?>">
+                        <input type="text" class="form-control" name="name_product" id="name_product" required value="<?= htmlspecialchars($product["name_product"]) ?>">
                     </div>
 
                     <div class="mb-3">
                         <label for="description_product" class="form-label">Deskripsi Produk</label>
-                        <input type="text" class="form-control" name="description_product" id="description_product"
-                            required value="<?= $product["description_product"] ?>">
+                        <input type="text" class="form-control" name="description_product" id="description_product" required value="<?= htmlspecialchars($product["description_product"]) ?>">
                     </div>
 
                     <div class="mb-3">
                         <label for="price_product" class="form-label">Harga Produk</label>
-                        <input type="text" class="form-control" name="price_product" id="price_product" required
-                            value="<?= $product["price_product"] ?>">
+                        <input type="text" class="form-control" name="price_product" id="price_product" required value="<?= htmlspecialchars($product["price_product"]) ?>">
                     </div>
 
                     <div class="mb-3">
                         <label for="id_category" class="form-label">Kategori Produk</label>
-                        <input type="text" class="form-control" name="id_category" id="id_category" required
-                            value="<?= $product["id_category"] ?>">
+                        <select class="form-control" name="id_category" id="id_category" required>
+                            <option value="">-- Pilih Kategori --</option>
+                            <?php foreach ($category as $row) : ?>
+                                <option value="<?= $row['id_category']; ?>" <?= $row['id_category'] == $product['id_category'] ? 'selected' : '' ?>>
+                                    <?= htmlspecialchars($row['name_category']); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-between">

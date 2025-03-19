@@ -16,6 +16,44 @@
         }
         return $rows;
     }
+
+        // Fungsi query untuk mendapatkan semua produk
+    function getAllProducts() {
+        global $conn;
+        $sql = "SELECT p.id_product, p.image_product, p.name_product, p.price_product, c.name_category 
+                FROM `bo-product` p
+                JOIN `bo-category` c ON p.id_category = c.id_category
+                ORDER BY p.id_product DESC";
+        $result = $conn->query($sql);
+        
+        $products = [];
+        while ($row = $result->fetch_assoc()) {
+            $products[] = $row;
+        }
+        return $products;
+    }
+
+    // Fungsi pencarian produk dengan prepared statement
+    function searchProducts($keyword) {
+        global $conn;
+        $sql = "SELECT p.id_product, p.image_product, p.name_product, p.price_product, c.name_category 
+                FROM `bo-product` p
+                JOIN `bo-category` c ON p.id_category = c.id_category
+                WHERE p.name_product LIKE ? OR c.name_category LIKE ?";
+        
+        $stmt = $conn->prepare($sql);
+        $search_param = "%$keyword%";
+        $stmt->bind_param("ss", $search_param, $search_param);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        $products = [];
+        while ($row = $result->fetch_assoc()) {
+            $products[] = $row;
+        }
+        return $products;
+    }
+
     // Function Create
     function add($data) {
         global $conn;
@@ -233,5 +271,16 @@
                  </script>";
             return false;
         }
+    }
+
+    function execute($query) {
+        global $conn; // Menggunakan koneksi global
+        $result = mysqli_query($conn, $query);
+    
+        if (!$result) {
+            die("Query gagal: " . mysqli_error($conn)); // Debugging error
+        }
+    
+        return $result; // Mengembalikan hasil query
     }
 ?>
