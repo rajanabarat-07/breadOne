@@ -17,10 +17,15 @@ $banner = query("SELECT * FROM `bo-banner`");
 
 <body>
     <div class="container mt-5">
-        <h1 class="text-center mb-4">Kelola Banner</h1>
-
-        <div class="d-flex justify-content-between mb-3">
-            <a href="banner-add.php" class="btn btn-primary">Tambah Banner</a>
+        <h1 class="text-center mb-4">Kategori</h1>
+        <?php include "../Layout/sidebar.html"; ?>
+        <div class="d-flex mb-3 mt-3 justify-content-between">
+            <form class="d-flex gap-2" method="get">
+                <input type="text" class="form-control w-auto" placeholder="Cari Kategori" name="search"
+                    value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+                <button type="submit" class="btn btn-outline-secondary">Cari</button>
+            </form>
+            <a href="category-add.php" class="btn btn-primary">Tambah Banner</a>
         </div>
 
         <div class="table-responsive">
@@ -41,15 +46,18 @@ $banner = query("SELECT * FROM `bo-banner`");
                         </tr>
                     <?php else: ?>
                         <?php $i = 1; ?>
-                        <?php foreach ($banner as $row) : ?>
+                        <?php foreach ($banner as $row): ?>
                             <tr>
                                 <td><?= $i ?></td>
-                                <td><img src="../Images/<?= htmlspecialchars($row["image_banner"]); ?>" class="img-thumbnail" width="100"></td>
+                                <td><img src="../Images/<?= htmlspecialchars($row["image_banner"]); ?>" class="img-thumbnail"
+                                        width="100"></td>
                                 <td><?= htmlspecialchars($row["title_banner"]) ?></td>
                                 <td><?= htmlspecialchars($row["description_banner"]) ?></td>
                                 <td>
-                                    <a href="banner-updt.php?id=<?= $row["id_banner"]; ?>" class="btn btn-warning btn-sm">Edit</a>
-                                    <a href="banner-del.php?id=<?= $row["id_banner"]; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Hapus banner ini?');">Hapus</a>
+                                    <a href="banner-updt.php?id=<?= $row["id_banner"]; ?>"
+                                        class="btn btn-warning btn-sm">Edit</a>
+                                    <a href="banner-del.php?id=<?= $row["id_banner"]; ?>" class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Hapus banner ini?');">Hapus</a>
                                 </td>
                             </tr>
                             <?php $i++; ?>
@@ -62,4 +70,5 @@ $banner = query("SELECT * FROM `bo-banner`");
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
