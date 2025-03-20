@@ -19,14 +19,7 @@ $banner = query("SELECT * FROM `bo-banner`");
     <div class="container mt-5">
         <h1 class="text-center mb-4">Kategori</h1>
         <?php include "../Layout/sidebar.html"; ?>
-        <div class="d-flex mb-3 mt-3 justify-content-between">
-            <form class="d-flex gap-2" method="get">
-                <input type="text" class="form-control w-auto" placeholder="Cari Kategori" name="search"
-                    value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
-                <button type="submit" class="btn btn-outline-secondary">Cari</button>
-            </form>
-            <a href="category-add.php" class="btn btn-primary">Tambah Banner</a>
-        </div>
+        <?php include "../Layout/searchbar.php";?>
 
         <div class="table-responsive">
             <table class="table table-bordered table-hover text-center">

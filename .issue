@@ -5,10 +5,19 @@
 ⚠️ Permasalahan pada interface
 🛠️ Permasalahan pada code 
 ✅ Permasalahan yang sudah selesai  
-
+➕ Ide Penambahan sesuatu
+➖ Ide Pengurangan sesuatu
+💡 Ide yang mungkin bisa ditambahkan
 <!-- -------------------------------------------------------------------------------------------------------------------------->
 
 <!-- 19 Maret 2025 21 : 30 WIB -->
 ⚠️ Fungsi search pada banner belum selesai
 🛠️ Perbedaan antara fungsi pencarian product index dan catgory serta banner
 ⚠️ Gambar belum diperbaiki 
+
+<!-- 20 Maret 2025 11 : 05 WIB -->
+➕ Penambahan untuk bagian tombol akun (memakasi fitur component>collapse dengan bootstrap atau menggunakan component>modal>Scrolling long content )
+➕ Perubahan side bar (menggunakan fitur component>list group)
+➕ Perubahan alert (menggunakan component>model>live model )
+💡 Penambahan untuk fitur detail produk (menggunakan popovers)
+➕ Perubahan message (menggunakan component>toasts )

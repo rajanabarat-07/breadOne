@@ -17,14 +17,7 @@ include '../config.php';
         <h1 class="text-center mb-4">Kategori</h1>
         <?php include "../Layout/sidebar.html"; ?>
         <!-- Form Pencarian dan Tambah -->
-        <div class="d-flex mb-3 mt-3 justify-content-between">
-            <form class="d-flex gap-2" method="get">
-                <input type="text" class="form-control w-auto" placeholder="Cari Kategori" name="search"
-                    value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
-                <button type="submit" class="btn btn-outline-secondary">Cari</button>
-            </form>
-            <a href="category-add.php" class="btn btn-success">Tambah Kategori</a>
-        </div>
+        <?php include "../Layout/searchbar.php";?>
 
         <!-- Tabel Kategori -->
         <div class="table-container">

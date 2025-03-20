@@ -1,22 +1,22 @@
 <?php
-    include "config.php";
-    if (isset($_POST["login"])) {
-        $name_customer = $_POST["name_customer"];
-        $password_customer = $_POST["password_customer"];
+include "config.php";
+if (isset($_POST["login"])) {
+    $name_customer = $_POST["name_customer"];
+    $password_customer = $_POST["password_customer"];
 
-        $login_customer = mysqli_query($conn, "SELECT * FROM `bo-customer` WHERE name_customer = '$name_customer'");
+    $login_customer = mysqli_query($conn, "SELECT * FROM `bo-customer` WHERE name_customer = '$name_customer'");
 
-        // Validate name_customer
-        if (mysqli_num_rows($login_customer) === 1) {
-            // Validate password_customer
-            $row = mysqli_fetch_assoc($login_customer);
-            if (password_verify($password_customer, $row["password_customer"])) {
-                header("Location: index.php");
-                exit();
-            }
+    // Validate name_customer
+    if (mysqli_num_rows($login_customer) === 1) {
+        // Validate password_customer
+        $row = mysqli_fetch_assoc($login_customer);
+        if (password_verify($password_customer, $row["password_customer"])) {
+            header("Location: index.php");
+            exit();
         }
-        $error = "true";
     }
+    $error = "true";
+}
 ?>
 
 <!DOCTYPE html>
@@ -26,7 +26,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bread One - Login</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
 <body class="d-flex align-items-center justify-content-center" style="height: 100vh; background-color: #f8f9fa;">
@@ -40,24 +41,30 @@
                             Nama dan password yang Anda masukkan salah.
                         </div>
                     <?php endif; ?>
-                    <form action="" method="POST">
-                        <div class="mb-3">
-                            <label for="name_customer" class="form-label">Nama</label>
-                            <input type="text" class="form-control" name="name_customer" id="name_customer" autofocus autocomplete="off" required>
+                    <form action="" method="POST" autocomplete="off">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="name_customer" id="name_customer"
+                                placeholder="Nama" autocomplete="off" required>
+                            <label for="name_customer">Nama</label>
                         </div>
-                        <div class="mb-3">
-                            <label for="password_customer" class="form-label">Password</label>
-                            <input type="password" class="form-control" name="password_customer" id="password_customer" autofocus autocomplete="off" required>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" name="password_customer" id="password_customer"
+                                placeholder="Password" autocomplete="new-password" required>
+                            <label for="password_customer">Password</label>
                         </div>
                         <div class="d-grid">
                             <button type="submit" class="btn btn-primary" name="login">Login</button>
                         </div>
                     </form>
+
+
                 </div>
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
