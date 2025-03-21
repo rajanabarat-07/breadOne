@@ -1,8 +1,9 @@
 <?php
 include "../config.php";
 
-// Ambil data banner dari database
-$banner = query("SELECT * FROM `bo-banner`");
+// Ambil data banner dari database berdasarkan pencarian atau semua
+$search = isset($_POST["keyword"]) ? $_POST["keyword"] : '';
+$banner = isset($_POST["search"]) ? searchBanners($search) : getAllBanners();
 ?>
 
 <!DOCTYPE html>
@@ -17,9 +18,12 @@ $banner = query("SELECT * FROM `bo-banner`");
 
 <body>
     <div class="container mt-5">
-        <h1 class="text-center mb-4">Kategori</h1>
+        <h1 class="text-center mb-4">Banner</h1>
         <?php include "../Layout/sidebar.html"; ?>
-        <?php include "../Layout/searchbar.php";?>
+        <div class="d-flex justify-content-between mb-3 mt-3">
+            <?php include "../Layout/searchbar.php"; ?>
+            <a href="banner-add.php" class="btn btn-primary">Tambahkan Banner</a>
+        </div>
 
         <div class="table-responsive">
             <table class="table table-bordered table-hover text-center">
@@ -35,7 +39,7 @@ $banner = query("SELECT * FROM `bo-banner`");
                 <tbody>
                     <?php if (empty($banner)): ?>
                         <tr>
-                            <td colspan="5" class="text-center">Tidak ada banner</td>
+                            <td colspan="5" class="text-center">Tidak ada data ditemukan</td>
                         </tr>
                     <?php else: ?>
                         <?php $i = 1; ?>

@@ -1,6 +1,10 @@
 <?php
 // Menyertakan file koneksi dan navbar
 include '../config.php';
+
+// Ambil semua kategori atau berdasarkan pencarian
+$search = isset($_POST["keyword"]) ? $_POST["keyword"] : '';
+$categories = isset($_POST["search"]) ? searchCategories($search) : getAllCategories();
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +21,10 @@ include '../config.php';
         <h1 class="text-center mb-4">Kategori</h1>
         <?php include "../Layout/sidebar.html"; ?>
         <!-- Form Pencarian dan Tambah -->
-        <?php include "../Layout/searchbar.php";?>
+        <div class="d-flex justify-content-between mb-3 mt-3">
+            <?php include "../Layout/searchbar.php"; ?>
+            <a href="product-add.php" class="btn btn-primary">Tambahkan Produk</a>
+        </div>
 
         <!-- Tabel Kategori -->
         <div class="table-container">
@@ -32,24 +39,10 @@ include '../config.php';
                     </thead>
                     <tbody>
                         <?php
-                        // Mengambil data kategori dengan filter pencarian (jika ada)
-                        $search = isset($_GET['search']) ? trim($_GET['search']) : '';
-
-                        if (!empty($search)) {
-                            $stmt = $conn->prepare("SELECT * FROM `bo-category` WHERE name_category LIKE ? ORDER BY id_category ASC");
-                            $search = "%$search%";
-                            $stmt->bind_param("s", $search);
-                        } else {
-                            $stmt = $conn->prepare("SELECT * FROM `bo-category` ORDER BY id_category ASC");
-                        }
-
-                        $stmt->execute();
-                        $result = $stmt->get_result();
-
                         // Jika data ditemukan
-                        if ($result->num_rows > 0) {
+                        if (!empty($categories)) {
                             $no = 1;
-                            while ($row = $result->fetch_assoc()) {
+                            foreach ($categories as $row) {
                                 echo "
                             <tr>
                                 <td>{$no}</td>
@@ -65,12 +58,10 @@ include '../config.php';
                         } else {
                             echo "
                         <tr>
-                            <td colspan='3' class='text-center'>Tidak ada data kategori.</td>
+                            <td colspan='3' class='text-center'>Tidak ada data ditemukan</td>
                         </tr>
                         ";
                         }
-
-                        $stmt->close();
                         ?>
                     </tbody>
                 </table>

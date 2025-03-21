@@ -24,7 +24,10 @@ $product = isset($_POST["search"]) ? searchProducts($_POST["keyword"]) : getAllP
     <div class="container mt-5">
         <h1 class="text-center mb-4">Dashboard</h1>
         <?php include "../Layout/sidebar.html"; ?>
-        <?php include "../Layout/searchbar.php";?>
+        <div class="d-flex justify-content-between mb-3 mt-3">
+            <?php include "../Layout/searchbar.php"; ?>
+            <a href="product-add.php" class="btn btn-primary">Tambahkan Produk</a>
+        </div>
 
         <div class="table-responsive">
             <table class="table table-bordered table-hover text-center">

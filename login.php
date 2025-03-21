@@ -28,6 +28,15 @@ if (isset($_POST["login"])) {
     <title>Bread One - Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+        .lobster-regular {
+            font-family: "Lobster", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+    </style>
 </head>
 
 <body class="d-flex align-items-center justify-content-center" style="height: 100vh; background-color: #f8f9fa;">
@@ -35,7 +44,7 @@ if (isset($_POST["login"])) {
         <div class="row justify-content-center">
             <div class="col-md-4">
                 <div class="card shadow p-4">
-                    <h2 class="text-center mb-4">Login</h2>
+                    <h2 class="text-center mb-4 lobster-regular">Bread One</h2>
                     <?php if (isset($error)): ?>
                         <div class="alert alert-danger" role="alert">
                             Nama dan password yang Anda masukkan salah.
@@ -54,10 +63,9 @@ if (isset($_POST["login"])) {
                         </div>
                         <div class="d-grid">
                             <button type="submit" class="btn btn-primary" name="login">Login</button>
-                        </div>
+                        </div><br>
+                        <p>Belum mempunyai akun? <a href="registrasi.php">Registrasi</a> disini.</p>
                     </form>
-
-
                 </div>
             </div>
         </div>

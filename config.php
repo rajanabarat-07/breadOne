@@ -283,4 +283,48 @@
     
         return $result; // Mengembalikan hasil query
     }
+
+    // Function untuk mencari kategori 
+    function getAllCategories() {
+        global $conn;
+        $stmt = $conn->prepare("SELECT * FROM `bo-category` ORDER BY id_category ASC");
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+    
+    function searchCategories($keyword) {
+        global $conn;
+        $stmt = $conn->prepare("
+            SELECT * FROM `bo-category` 
+            WHERE name_category LIKE ? 
+            ORDER BY id_category ASC
+        ");
+        $search = "%$keyword%";
+        $stmt->bind_param("s", $search);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+    
+    // Function to get all banners
+    function getAllBanners() {
+        global $conn;
+        $stmt = $conn->prepare("SELECT * FROM `bo-banner` ORDER BY id_banner ASC");
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    // Function to search banners
+    function searchBanners($keyword) {
+        global $conn;
+        $stmt = $conn->prepare("
+            SELECT * FROM `bo-banner` 
+            WHERE title_banner LIKE ? OR description_banner LIKE ?
+            ORDER BY id_banner ASC
+        ");
+        $search = "%$keyword%";
+        $stmt->bind_param("ss", $search, $search);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+    
 ?>

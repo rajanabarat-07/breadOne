@@ -20,15 +20,24 @@ if (isset($_POST["register"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bread One</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+        .lobster-regular {
+            font-family: "Lobster", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+    </style>
 </head>
 
 <body class="d-flex justify-content-center align-items-center vh-100 bg-light">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="card shadow-lg">
                     <div class="card-body">
-                        <h2 class="text-center">Registrasi</h2>
+                        <h2 class="text-center lobster-regular">Registrasi</h2>
                         <form action="" method="POST" enctype="multipart/form-data" autocomplete="off">
                             <div class="mb-3">
                                 <label for="image_customer" class="form-label">Photo Profile</label>
@@ -52,6 +61,9 @@ if (isset($_POST["register"])) {
                             </div>
                             <div class="d-grid">
                                 <button type="submit" name="register" class="btn btn-primary">Register</button>
+                            </div><br>
+                            <div class="d-flex justify-content-center">
+                                <p >Sudah mempunyai akun? <a href="login.php">Login</a> sekarang.</p>
                             </div>
                         </form>
                     </div>
