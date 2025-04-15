@@ -17,13 +17,13 @@ $categories = isset($_POST["search"]) ? searchCategories($search) : getAllCatego
 </head>
 
 <body>
+    <?php include "../Layout/sidebar.php"; ?>
     <div class="container mt-5">
-        <h1 class="text-center mb-4">Kategori</h1>
-        <?php include "../Layout/sidebar.html"; ?>
+        <h2 class="text-left mb-4">Kategori</h2>
         <!-- Form Pencarian dan Tambah -->
         <div class="d-flex justify-content-between mb-3 mt-3">
             <?php include "../Layout/searchbar.php"; ?>
-            <a href="product-add.php" class="btn btn-primary">Tambahkan Produk</a>
+            <a href="category-add.php" class="btn btn-primary">Tambahkan Kategori</a>
         </div>
 
         <!-- Tabel Kategori -->

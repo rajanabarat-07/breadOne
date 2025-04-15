@@ -1,11 +1,10 @@
-<?php 
-    require_once __DIR__ . "/../config.php";
+<?php
+session_start();
+require_once "config.php";
+if (isset($_SESSION['id_customer'])) {
 
-    $product = query("SELECT * FROM `bo-product`");
-
-    if(isset($_POST["search"])){
-        $product = srch($_POST["keyword"]);
-    }
+    $id_customer = $_SESSION['id_customer'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -19,97 +18,100 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <style>
-        /* Navbar styling */
-        .navbar-custom {
-            background-color: #ffc107; /* Warna khas Tokopedia */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        .custom-nav {
+            background-color: #f8f9fa;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 10px 0;
         }
 
-        .navbar-brand {
-            font-size: 1.5rem;
-            font-weight: bold;
+        .nav-link {
+            color: #333 !important;
+            font-weight: 500;
+            transition: all 0.3s;
         }
 
-        .search-bar {
-            width: 100%;
-            max-width: 500px;
-        }
-
-        /* Style tombol */
-        .btn-custom {
-            background-color: #8B4513;
-            color: white;
-            border-radius: 8px;
-        }
-
-        .btn-custom:hover {
-            background-color: #6b3310;
-            color: white;
-        }
-
-        /* Mengatur posisi elemen di navbar */
-        .navbar-nav {
-            align-items: center;
-        }
-
-        /* Responsive */
-        @media (max-width: 992px) {
-            .search-bar {
-                max-width: 100%;
-            }
+        .nav-link:hover {
+            color: #ffc107 !important;
         }
     </style>
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-custom">
-            <div class="container">
-                <!-- Brand -->
-                <a class="navbar-brand text-dark" href="#">Bread One</a>
+    <nav class="custom-nav">
+        <div class="container">
+            <ul class="nav nav-pills justify-content-left">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php">
+                        <i class="bi bi-house-door"></i> Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="product.php">
+                        <i class="bi bi-box-seam"></i> Product
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="cart.php">
+                        <i class="bi bi-receipt"></i> Orders
 
-                <!-- Toggler -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                        <?php
+                        if (isset($_SESSION['id_customer'])) {
+                            $id_customer = $_SESSION['id_customer'];
+                            $validate = mysqli_query($conn, "SELECT * FROM `bo-cart` WHERE id_customer = '$id_customer'");
+                            $result = mysqli_num_rows($validate);
+                            ?>
+                            <span class="badge bg-danger"><?= $result ?></span>
+                        </a>
+                </li>
 
-                <!-- Navbar Content -->
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <!-- Search bar (Desktop) -->
-                    <form class="d-none d-lg-flex mx-auto w-50 search-bar" role="search" action="" method="POST">
-                        <input class="form-control me-2" type="search" placeholder="Cari roti kesukaanmu..."
-                            aria-label="Search" name="keyword">
-                        <button class="btn btn-custom" type="submit" name="search">Cari</button>
-                    </form>
+                    <?php
+                        } else {
+                            echo "
+						<span class='badge bg-secondary'>0</span>
+                        </a>
+                </li>
 
-                    <!-- Menu Kanan -->
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link text-dark">
-                                <i class="bi bi-cart fs-5"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="./login.php" class="btn btn-outline-dark ms-2">Masuk</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="./registrasi.php" class="btn btn-dark ms-2">Daftar</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+						";
+                        }
 
-        <!-- Search bar (Mobile) -->
-        <div class="container d-lg-none mt-3">
-            <form class="d-flex search-bar" role="search" action="" method="POST">
-                <input class="form-control me-2" type="search" placeholder="Cari roti kesukaanmu..." aria-label="Search"
-                    name="keyword">
-                <button class="btn btn-custom" type="submit" name="search">Cari</button>
-            </form>
+                        if (!isset($_SESSION['name_customer'])) {
+                            ?>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="login.php" id="akunDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle"></i> Akun
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="akunDropdown">
+                            <li><a class="dropdown-item" href="login.php"><i class="bi bi-box-arrow-in-right"></i>
+                                    Login</a></li>
+                            <li><a class="dropdown-item" href="register.php"><i class="bi bi-person-plus"></i> Register</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <?php
+                        } else {
+                            ?>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="login.php" id="akunDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle"></i> <?= $_SESSION['name_customer'] ?>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="akunDropdown">
+                            <li><a class="dropdown-item" href="logout.php"><i class="bi bi-box-arrow-in-right"></i> Logout</a></li>
+                            <li><a class="dropdown-item" href="profile.php"><i class="bi bi-gear"></i>Profile</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                </li>
+            <?php }
+                        ; ?>
+            </ul>
+
         </div>
-    </header>
+    </nav>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

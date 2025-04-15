@@ -20,7 +20,7 @@
         // Fungsi query untuk mendapatkan semua produk
     function getAllProducts() {
         global $conn;
-        $sql = "SELECT p.id_product, p.image_product, p.name_product, p.price_product, c.name_category 
+        $sql = "SELECT p.*, c.name_category 
                 FROM `bo-product` p
                 JOIN `bo-category` c ON p.id_category = c.id_category
                 ORDER BY p.id_product DESC";
@@ -54,20 +54,43 @@
         return $products;
     }
 
+    function ing() {
+
+    }
+
     // Function Create
     function add($data) {
         global $conn;
+        $id_product = htmlspecialchars($data["id_product"]);
         $name_product = htmlspecialchars($data["name_product"]);
-        $description_product = htmlspecialchars($data["description_product"]);
         $price_product = htmlspecialchars($data["price_product"]);
         $id_category = htmlspecialchars($data["id_category"]);
+        $stock_product = 0;
+        $life_product = htmlspecialchars($data["life_product"]);
         
         $image_product = uplImg();
         if(!$image_product) {
             return false;
         }
 
-        $query = "INSERT INTO `bo-product` VALUES ('', '$name_product', '$description_product', '$price_product', '$image_product', '$id_category')";
+        $query = "INSERT INTO `bo-product` VALUES ('$id_product', '$name_product', '$price_product', '$image_product', '$id_category', '$$stock_product', '$life_product')";
+
+        mysqli_query($conn, $query);
+
+        return mysqli_affected_rows($conn);
+    }
+
+    // Function Create
+    function addIng($data) {
+        global $conn;
+        $id_ingredient = htmlspecialchars($data["id_ingredient"]);
+        $name_ingredient = htmlspecialchars($data["name_ingredient"]);
+        $qty_ingredient = htmlspecialchars($data["qty_ingredient"]);
+        $unit_ingredient = htmlspecialchars($data["unit_ingredient"]);
+        $price_ingredient = htmlspecialchars($data["price_ingredient"]);
+        
+
+        $query = "INSERT INTO `bo-ingredient` VALUES ('$id_ingredient', '$name_ingredient', '$qty_ingredient', '$unit_ingredient', '$price_ingredient')";
 
         mysqli_query($conn, $query);
 
@@ -102,7 +125,7 @@
         }
 
         // Validasi ukuran gambar
-        if($size_image > 1000000) {
+        if($size_image > 1000000000) {
             echo "<script>
                 alert('Ukuran gambar terlalu besar!');
             </script>";
@@ -122,10 +145,10 @@
 
     // Function upload gambar customer
     function uplImgCust() {
-        $name_image = $_FILES['image_product']['name'];
-        $size_image = $_FILES['image_product']['size'];
-        $error_image = $_FILES['image_product']['error'];
-        $tmp_image = $_FILES['image_product']['tmp_name'];
+        $name_image = $_FILES['image_customer']['name'];
+        $size_image = $_FILES['image_customer']['size'];
+        $error_image = $_FILES['image_customer']['error'];
+        $tmp_image = $_FILES['image_customer']['tmp_name'];
 
         // Validasi gambar tidak di uploads 
         if($error_image === 4) {
@@ -181,7 +204,7 @@
     function updt($data) {
         global $conn;
 
-        $id_product = $data["id_product"];
+        $id_product = htmlspecialchars($data["old_id"]);
         $name_product = htmlspecialchars($data["name_product"]);
         $description_product = htmlspecialchars($data["description_product"]);
         $price_product = htmlspecialchars($data["price_product"]);
@@ -189,7 +212,7 @@
         $old_image = htmlspecialchars($data["old_image"]);
 
         // Validasi pengubahan gambar
-        if ($_FILES['image_product'] === 4) {
+        if ($_FILES['image_product']['error'] === 4) {
             $image_product = $old_image;
         } else { 
             $image_product = uplImg();
@@ -201,18 +224,55 @@
                     price_product = '$price_product',
                     image_product = '$image_product',
                     id_category = '$id_category'
-                WHERE id_product = $id_product
+                WHERE id_product = '$id_product'
                 ";
 
         mysqli_query($conn, $query);
 
         return mysqli_affected_rows($conn);
-    }    
+    }  
+    
+    // Function Update Bahan 
+    function updtIng($data) {
+        global $conn;
+
+        $id_ingredient = htmlspecialchars($data["old_id"]);
+        $name_ingredient = htmlspecialchars($data["name_ingredient"]);
+        $qty_ingredient = htmlspecialchars($data["qty_ingredient"]);
+        $price_ingredient = htmlspecialchars($data["price_ingredient"]);
+        $unit_ingredient = htmlspecialchars($data["unit_ingredient"]);
+
+        $query = "UPDATE `bo-ingredient` SET
+                    name_ingredient = '$name_ingredient',
+                    qty_ingredient = '$qty_ingredient',
+                    price_ingredient = '$price_ingredient',
+                    unit_ingredient = '$unit_ingredient'
+                WHERE id_ingredient = '$id_ingredient'
+                ";
+
+        mysqli_query($conn, $query);
+
+        return mysqli_affected_rows($conn);
+    }
 
     // Function Delete
     function del($id) {
         global $conn;
-        mysqli_query($conn,"DELETE FROM `bo-product` WHERE id_product = $id");
+        mysqli_query($conn,"DELETE FROM `bo-product` WHERE id_product = '$id'");
+        return mysqli_affected_rows($conn);
+    }
+
+    // Function Delete Bahan
+    function delIng($id) {
+        global $conn;
+        mysqli_query($conn,"DELETE FROM `bo-ingredient` WHERE id_ingredient = '$id'");
+        return mysqli_affected_rows($conn);
+    }
+
+    //Function Delete Keranjang
+    function delCart($id) {
+        global $conn;
+        mysqli_query($conn,"DELETE FROM `bo-cart` WHERE id_cart = '$id'");
         return mysqli_affected_rows($conn);
     }
 
@@ -229,7 +289,7 @@
         if ($_FILES["image_customer"]["error"] === 4) {
             $image_customer = "default.jpg"; // Gambar default
         } else {
-            $image_customer = uploadImage();
+            $image_customer = uplImgCust();
             if (!$image_customer) {
                 return false;
             }
@@ -304,27 +364,49 @@
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
+
     
-    // Function to get all banners
-    function getAllBanners() {
+    // FUnctio to get all ingridient
+    function getAllIngredient() {
         global $conn;
-        $stmt = $conn->prepare("SELECT * FROM `bo-banner` ORDER BY id_banner ASC");
+        $stmt = $conn->prepare("SELECT * FROM `bo-ingredient` ORDER BY id_ingredient ASC");
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
-    // Function to search banners
-    function searchBanners($keyword) {
+    function searchIngredient($keyword) {
         global $conn;
         $stmt = $conn->prepare("
-            SELECT * FROM `bo-banner` 
-            WHERE title_banner LIKE ? OR description_banner LIKE ?
-            ORDER BY id_banner ASC
+        SELECT * FROM `bo-ingredient` 
+        WHERE name_ingredient LIKE ? 
+        ORDER BY id_ingredient ASC
         ");
         $search = "%$keyword%";
-        $stmt->bind_param("ss", $search, $search);
+        $stmt->bind_param("s", $search);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    // Function to get report-expense
+
+    function getAllExpense() {
+        global $conn;
+        return mysqli_query($conn, "SELECT * FROM `bo-income` ORDER BY date_income DESC");
+    }
+    
+    function searchExpense($keyword) {
+        global $conn;
+        return mysqli_query($conn, "SELECT * FROM `bo-income` WHERE invoice LIKE '%$keyword%' ORDER BY date_income DESC");
+    }
+       
+
+    function filterExpenseByDate($start, $end) {
+        global $conn;
+        $stmt = $conn->prepare("SELECT * FROM `bo-income` WHERE date_income BETWEEN ? AND ?");
+        $stmt->bind_param("ss", $start, $end);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
     
 ?>

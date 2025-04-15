@@ -1,134 +1,103 @@
-<?php
-include "config.php";
-
-// Ambil semua banner
-$banners = execute("SELECT * FROM `bo-banner`");
-
-// Ambil semua produk
-$product = execute("SELECT * FROM `bo-product`");
-
-if (isset($_POST["search"])) {
-    $product = srch($_POST["keyword"]);
-}
-?>
-
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bread One</title>
+    <title>Customer</title>
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="icon" href="Layout/favicon.png" type="image/x-icon">
+
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/lottie-web@5.7.4/build/player/lottie.min.js"></script>
+
     <style>
-        /* Mengatur rasio gambar banner */
-        .carousel-item {
+        body {
+            overflow-x: hidden;
+            background: linear-gradient(to bottom right, #fffaf0, #ffe4e1);
+            /* warna pastel lembut */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             position: relative;
-            width: 100%;
-            padding-top: 25%; /* Rasio 4:1 untuk laptop (1 / 4 * 100%) */
-            overflow: hidden;
         }
 
-        .carousel-item img {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Memastikan gambar terpotong jika melebihi rasio */
-            transform: translate(-50%, -50%);
+        .bg-light {
+            background-color: rgba(255, 255, 255, 0.8) !important;
+            /* transparan putih */
+            backdrop-filter: blur(5px);
         }
 
-        /* Rasio 16:6 untuk perangkat kecil */
-        @media (max-width: 768px) {
-            .carousel-item {
-                padding-top: 37.5%; /* Sesuaikan untuk mobile */
-            }
-        }
-
-        .text-multiline-truncate {
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            height: 2.8em;
-            line-height: 1.4em;
-        }
-
-        .card:hover {
-            transform: scale(1.05);
-            transition: all 0.1s ease-in-out;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        h4 {
+            margin-top: 50px;
+            font-weight: bold;
+            color: #8B4513;
+            /* warna coklat roti */
         }
     </style>
+
+    
+
 </head>
 
 <body>
-    <?php include "./Layout/header.php"; ?>
-
-<!-- CAROUSEL BANNER -->
-<div id="carouselExampleCaptions" class="carousel slide mb-2 mt-4 rounded-4 container px-lg-5 px-3 border border-1" 
-    data-bs-ride="carousel" data-bs-interval="3000">  <!-- Slide otomatis setiap 3 detik -->
-
-    <div class="carousel-indicators">
-        <?php foreach ($banners as $index => $banner): ?>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="<?= $index ?>"
-                class="<?= $index === 0 ? 'active' : '' ?>" aria-label="Slide <?= $index + 1 ?>"></button>
-        <?php endforeach; ?>
-    </div>
-
-    <div class="carousel-inner">
-        <?php foreach ($banners as $index => $banner): ?>
-            <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
-                <img src="Images/<?= htmlspecialchars($banner['image_banner']) ?>" class="d-block w-100"
-                    alt="<?= htmlspecialchars($banner['title_banner']) ?>">
-                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 p-2 rounded">
-                    <h5 class="text-white"><?= htmlspecialchars($banner['title_banner']) ?></h5>
-                    <p class="text-white"><?= htmlspecialchars($banner['description_banner']) ?></p>
-                </div>
+    <?php include "Layout/header.php"; ?>
+    <div class="container my-4">
+        <div class="row">
+            <div class="col text-center" data-aos="flip-up">
+                <img src="Images/Component1.jpg" class="img-fluid rounded shadow" alt="Roti Fresh Breadoen">
             </div>
-        <?php endforeach; ?>
-    </div>
+        </div>
 
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
-        data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
-        data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-</div>
+        <div class="row my-4 align-items-center">
+            <div class="col-md-6" data-aos="fade-right">
+                <p class="p-3 bg-light rounded shadow">
+                    Selamat datang di <strong>Breadone</strong>, tempat di mana setiap gigitan memberikan kebahagiaan!
+                    Kami menawarkan berbagai jenis roti segar yang dibuat dengan bahan berkualitas dan tanpa pengawet.
+                    Nikmati roti lembut dengan rasa yang autentik, dibuat dengan cinta untuk Anda dan keluarga.
+                </p>
+            </div>
+            <div class="col-md-6 text-center" data-aos="fade-left">
+                <img src="Images/Component2.jpg" class="img-fluid rounded shadow" alt="Varian Roti Breadoen">
+            </div>
+        </div>
 
+        <div class="row my-4 align-items-center flex-md-row-reverse">
+            <div class="col-md-6" data-aos="fade-left">
+                <p class="p-3 bg-light rounded shadow">
+                    Kami hanya menggunakan bahan-bahan alami terbaik, seperti tepung premium, mentega asli, dan ragi
+                    berkualitas tinggi. Dengan proses pembuatan yang higienis dan standar terbaik, kami memastikan
+                    setiap roti yang Anda nikmati selalu segar dan lezat.
+                </p>
+            </div>
+            <div class="col-md-6 text-center" data-aos="fade-right">
+                <img src="Images/Component3.jpg" class="img-fluid rounded shadow" alt="Bahan Berkualitas">
+            </div>
+        </div>
 
-    <!-- DAFTAR PRODUK -->
-    <div class="container py-5 px-lg-5 px-md-4 px-3">
-        <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-3">
-            <?php foreach ($product as $row): ?>
-                <div class="col">
-                    <a href="product-detail.php?id=<?= $row['id_product']; ?>" class="text-decoration-none">
-                        <div class="card h-100 w-100 border shadow-sm">
-                            <div class="ratio ratio-1x1">
-                                <img src="Images/<?= $row['image_product']; ?>" alt="Roti Fresh" class="img-fluid rounded">
-                            </div>
-                            <div class="card-body">
-                                <p class="card-text text-muted small text-multiline-truncate"><?= $row["name_product"] ?>
-                                </p>
-                                <h6 class="card-title fw-bold small">Rp
-                                    <?= number_format($row["price_product"], 0, ',', '.') ?>
-                                </h6>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            <?php endforeach; ?>
+        <h4>Our Location</h4>
+
+        <div class="row my-4 align-items-center" data-aos="zoom-in">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3986.507640578739!2d99.06400697363482!3d2.3342624976453736!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x302e0581c6500fcb%3A0x80c65aac25079009!2sBread%20One!5e0!3m2!1sen!2sid!4v1743766818857!5m2!1sen!2sid"
+                width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </div>
-
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- AOS JS -->
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000, // durasi animasi dalam ms
+            easing: 'ease-in-out',      // animasi hanya sekali saat masuk pertama
+            once: false,
+            offset: 100, // offset dari viewport
+            mirror: true
+        });
+    </script>
 </body>
 
 </html>

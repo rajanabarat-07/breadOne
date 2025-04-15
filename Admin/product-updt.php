@@ -4,7 +4,16 @@ include "../config.php";
 $id_product = $_GET["id"];
 
 // Ambil data produk berdasarkan ID
-$product = query("SELECT * FROM `bo-product` WHERE id_product = $id_product")[0];
+$stmt = $conn->prepare("SELECT * FROM `bo-product` WHERE id_product = ?");
+$stmt->bind_param("s", $id_product); // Gunakan "s" jika id_product adalah string, atau "i" jika integer
+$stmt->execute();
+$result = $stmt->get_result();
+$product = $result->fetch_assoc(); // Langsung ambil data tanpa perlu indeks [0]
+
+if (!$product) {
+    echo "Produk tidak ditemukan!";
+}
+
 
 // Ambil daftar kategori
 $category = query("SELECT * FROM `bo-category` ORDER BY name_category ASC");
@@ -44,13 +53,19 @@ if (isset($_POST['submit'])) {
             <div class="col-md-6">
                 <h1 class="text-center mb-4">Perbarui Produk</h1>
                 <form action="" method="POST" enctype="multipart/form-data" class="p-4 border rounded bg-light">
-                    <input type="hidden" name="id_product" value="<?= $product["id_product"]; ?>">
                     <input type="hidden" name="old_image" value="<?= $product["image_product"]; ?>">
-
+                    <input type="hidden" name="old_id" value="<?= $product["id_product"]; ?>">
+                    
                     <div class="mb-3 text-center">
                         <label for="image_product" class="form-label">Gambar Produk</label><br>
                         <img src="../Images/<?= htmlspecialchars($product['image_product']); ?>" class="img-fluid rounded" width="150" alt="Gambar Produk"><br>
                         <input type="file" class="form-control mt-2" name="image_product" id="image_product">
+                    </div>
+                    
+                    
+                    <div class="mb-3">
+                        <label for="id_product" class="form-label">Id Produk</label>
+                        <input type="text" class="from-control" name="id_product" id="id_product" value="<?= $product["id_product"]; ?>" disabled>
                     </div>
 
                     <div class="mb-3">
