@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 14, 2025 at 04:50 AM
+-- Generation Time: Apr 28, 2025 at 02:56 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -113,6 +113,13 @@ CREATE TABLE `bo-cart` (
   `status` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `bo-cart`
+--
+
+INSERT INTO `bo-cart` (`id_cart`, `id_customer`, `id_product`, `name_product`, `qty_cart`, `price_cart`, `status`) VALUES
+(83, 12, 'P0005', 'Roti Jala Keju', 10, 7000, 'Pastikan anda sudah memperbarui jumlah produk yang');
+
 -- --------------------------------------------------------
 
 --
@@ -180,7 +187,8 @@ INSERT INTO `bo-income` (`invoice`, `total_price`, `date_income`) VALUES
 ('INV0002', 432000, '2025-04-09 05:27:41'),
 ('INV0004', 58000, '2025-04-09 07:55:38'),
 ('INV0006', 77000, '2025-04-14 08:17:12'),
-('INV0006', 70000, '2025-04-14 08:22:19');
+('INV0006', 70000, '2025-04-14 08:22:19'),
+('INV0007', 59000, '2025-04-21 09:03:30');
 
 -- --------------------------------------------------------
 
@@ -192,32 +200,56 @@ CREATE TABLE `bo-ingredient` (
   `id_ingredient` varchar(100) NOT NULL,
   `name_ingredient` varchar(200) NOT NULL,
   `qty_ingredient` varchar(10) NOT NULL,
-  `unit_ingredient` varchar(10) NOT NULL,
-  `price_ingredient` int(11) NOT NULL
+  `unit_ingredient` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `bo-ingredient`
 --
 
-INSERT INTO `bo-ingredient` (`id_ingredient`, `name_ingredient`, `qty_ingredient`, `unit_ingredient`, `price_ingredient`) VALUES
-('I0001', 'Telur Ayam', '953', 'Butir', 2000),
-('I0002', 'Gula Pasir', '1000', 'gr', 5000),
-('I0003', 'Tepung Terigu', '100000', 'gr', 5000),
-('I0004', 'Santan Cair', '900', 'ml', 5000),
-('I0005', 'Minyak Sayur', '821', 'ml', 2000),
-('I0006', 'Pasta Pandan', '995', 'ml', 1000),
-('I0007', 'Keju Parut', '500', 'gr', 14000),
-('I0008', 'Ceres', '950', 'gr', 5000),
-('I0009', 'Baking Powder', '935', 'ml', 10000),
-('I0010', 'Coklat Bubuk', '1000', 'gr', 15000),
-('I0011', 'Dark cooking chocolate', '1000', 'gr', 20000),
-('I0012', 'Whipping cream cair', '1000', 'ml', 15000),
-('I0013', 'Mentega', '10000', 'gr', 15000),
-('I0014', 'Susu Cair', '10000', 'ml', 10000),
-('I0015', 'Vanilla Extract', '940', 'ml', 15000),
-('I0016', 'Ragi', '950', 'gr', 16000),
-('I0017', 'Garam', '919', 'g', 500);
+INSERT INTO `bo-ingredient` (`id_ingredient`, `name_ingredient`, `qty_ingredient`, `unit_ingredient`) VALUES
+('I0001', 'Telur Ayam', '3000', 'Butir'),
+('I0002', 'Gula Pasir', '3000', 'gr'),
+('I0003', 'Tepung Terigu', '88900', 'gr'),
+('I0004', 'Santan Cair', '900', 'ml'),
+('I0005', 'Minyak Sayur', '815', 'ml'),
+('I0006', 'Pasta Pandan', '995', 'ml'),
+('I0007', 'Keju Parut', '450', 'gr'),
+('I0008', 'Ceres', '950', 'gr'),
+('I0009', 'Baking Powder', '2995', 'ml'),
+('I0010', 'Coklat Bubuk', '1000', 'gr'),
+('I0011', 'Dark cooking chocolate', '1100', 'gr'),
+('I0012', 'Whipping cream cair', '1000', 'ml'),
+('I0013', 'Mentega', '9990', 'gr'),
+('I0014', 'Susu Cair', '2250', 'ml'),
+('I0015', 'Vanilla Extract', '940', 'ml'),
+('I0016', 'Ragi', '950', 'gr'),
+('I0017', 'Garam', '910', 'g');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bo-ingredient-import`
+--
+
+CREATE TABLE `bo-ingredient-import` (
+  `id_ii` int(11) NOT NULL,
+  `id_ingredient` varchar(100) NOT NULL,
+  `qty` int(10) NOT NULL,
+  `date_import` varchar(50) NOT NULL,
+  `price` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `bo-ingredient-import`
+--
+
+INSERT INTO `bo-ingredient-import` (`id_ii`, `id_ingredient`, `qty`, `date_import`, `price`) VALUES
+(0, 'I0009', 10, '2025-04-26 14:22:21', 10000),
+(0, 'I0001', 181, '2025-04-26', 362000),
+(0, 'I0001', 1940, '2025-04-26', 362000),
+(0, 'I0002', 2000, '2025-04-26', 6),
+(0, 'I0011', 100, '2025-04-26', 20000);
 
 -- --------------------------------------------------------
 
@@ -251,7 +283,9 @@ INSERT INTO `bo-order` (`id_order`, `invoice`, `id_customer`, `id_product`, `nam
 (43, 'INV0004', 11, 'P0005', 'Roti Jala Keju', 4, 7000, 'Pesanan Telah Diambil', '2025-04-09 07:55:38'),
 (44, 'INV0004', 11, 'P0003', 'Cup Cake', 2, 15000, 'Pesanan Telah Diambil', '2025-04-09 07:55:38'),
 (45, 'INV0005', 12, 'P0001', 'Bolu Petak Pandan Keju Ceres', 500000, 52000, 'Pesanan Ditolak', '2025-04-09 14:33:35'),
-(48, 'INV0006', 12, 'P0005', 'Roti Jala Keju', 10, 7000, 'Menunggu Pembayaran', '2025-04-14 08:22:19');
+(48, 'INV0006', 12, 'P0005', 'Roti Jala Keju', 10, 7000, 'Pesanan Telah Diambil', '2025-04-14 08:22:19'),
+(49, 'INV0007', 12, 'P0005', 'Roti Jala Keju', 1, 7000, 'Pesanan Selesai', '2025-04-21 09:03:30'),
+(50, 'INV0007', 12, 'P0001', 'Bolu Petak Pandan Keju Ceres', 1, 52000, 'Pesanan Selesai', '2025-04-21 09:03:30');
 
 -- --------------------------------------------------------
 
@@ -274,11 +308,11 @@ CREATE TABLE `bo-product` (
 --
 
 INSERT INTO `bo-product` (`id_product`, `name_product`, `price_product`, `image_product`, `id_category`, `stock_product`, `life_product`) VALUES
-('P0001', 'Bolu Petak Pandan Keju Ceres', 52000, '67f5301de92ba.jpg', 10, 20, 7),
+('P0001', 'Bolu Petak Pandan Keju Ceres', 52000, '67f5301de92ba.jpg', 10, 0, 7),
 ('P0002', 'Cake BF Coklat Siram Valentine Edition', 150000, '67f532cea8c6e.jpg', 9, 20, 7),
 ('P0003', 'Cup Cake', 15000, '67f533ee56efc.jpg', 13, 20, 3),
 ('P0004', 'Milk Bun', 23000, '67f534da8d81e.jpg', 15, 20, 3),
-('P0005', 'Roti Jala Keju', 7000, '67f5441630787.jpg', 7, 10, 3);
+('P0005', 'Roti Jala Keju', 7000, '67f5441630787.jpg', 7, 90, 3);
 
 -- --------------------------------------------------------
 
@@ -303,7 +337,8 @@ INSERT INTO `bo-production` (`id_log`, `id_product`, `quantity`, `date_productio
 (8, 'P0002', 20, '2025-04-14', '2025-04-21'),
 (9, 'P0003', 20, '2025-04-14', '2025-04-17'),
 (10, 'P0004', 20, '2025-04-14', '2025-04-17'),
-(11, 'P0005', 20, '2025-04-14', '2025-04-17');
+(11, 'P0005', 20, '2025-04-14', '2025-04-17'),
+(12, 'P0005', 1, '2025-04-14', '2025-04-17');
 
 -- --------------------------------------------------------
 
@@ -364,6 +399,58 @@ INSERT INTO `bo-step` (`id_product`, `step_number`, `step_description`) VALUES
 ('P0005', 6, 'Buat pola jala di atas pan menggunakan botol/cetakan tadi.'),
 ('P0005', 7, 'Masak dengan api kecil sampai matang (±1 menit), tidak perlu dibalik.'),
 ('P0005', 8, 'Angkat, lipat atau gulung sesuai selera, sajikan hangat.');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bo_sales`
+--
+
+CREATE TABLE `bo_sales` (
+  `id_sales` int(11) NOT NULL,
+  `tanggal` date DEFAULT NULL,
+  `total` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `bo_sales`
+--
+
+INSERT INTO `bo_sales` (`id_sales`, `tanggal`, `total`) VALUES
+(1, '2025-04-14', 14000),
+(2, '2025-04-14', 14000),
+(3, '2025-04-14', 14000),
+(4, '2025-04-14', 14000),
+(5, '2025-04-14', 14000),
+(6, '2025-04-14', 7000),
+(7, '2025-04-26', 988000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bo_sales_detail`
+--
+
+CREATE TABLE `bo_sales_detail` (
+  `id_detail` int(11) NOT NULL,
+  `id_sales` int(11) DEFAULT NULL,
+  `id_product` int(11) DEFAULT NULL,
+  `qty` int(11) DEFAULT NULL,
+  `harga` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `bo_sales_detail`
+--
+
+INSERT INTO `bo_sales_detail` (`id_detail`, `id_sales`, `id_product`, `qty`, `harga`) VALUES
+(1, 1, 0, 2, 7000),
+(2, 2, 0, 2, 7000),
+(3, 3, 0, 2, 7000),
+(4, 4, 0, 2, 7000),
+(5, 5, 0, 2, 7000),
+(6, 6, 0, 1, 7000),
+(7, 7, 0, 19, 52000);
 
 --
 -- Indexes for dumped tables
@@ -437,6 +524,19 @@ ALTER TABLE `bo-step`
   ADD KEY `id_product` (`id_product`);
 
 --
+-- Indexes for table `bo_sales`
+--
+ALTER TABLE `bo_sales`
+  ADD PRIMARY KEY (`id_sales`);
+
+--
+-- Indexes for table `bo_sales_detail`
+--
+ALTER TABLE `bo_sales_detail`
+  ADD PRIMARY KEY (`id_detail`),
+  ADD KEY `id_sales` (`id_sales`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -450,7 +550,7 @@ ALTER TABLE `bo-admin`
 -- AUTO_INCREMENT for table `bo-cart`
 --
 ALTER TABLE `bo-cart`
-  MODIFY `id_cart` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `id_cart` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- AUTO_INCREMENT for table `bo-category`
@@ -468,13 +568,25 @@ ALTER TABLE `bo-customer`
 -- AUTO_INCREMENT for table `bo-order`
 --
 ALTER TABLE `bo-order`
-  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `bo-production`
 --
 ALTER TABLE `bo-production`
-  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `bo_sales`
+--
+ALTER TABLE `bo_sales`
+  MODIFY `id_sales` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `bo_sales_detail`
+--
+ALTER TABLE `bo_sales_detail`
+  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
@@ -518,6 +630,12 @@ ALTER TABLE `bo-production`
 --
 ALTER TABLE `bo-step`
   ADD CONSTRAINT `bo-step_ibfk_1` FOREIGN KEY (`id_product`) REFERENCES `bo-product` (`id_product`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `bo_sales_detail`
+--
+ALTER TABLE `bo_sales_detail`
+  ADD CONSTRAINT `bo_sales_detail_ibfk_1` FOREIGN KEY (`id_sales`) REFERENCES `bo_sales` (`id_sales`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -72,17 +72,8 @@ if (isset($_POST['submit'])) {
                             <input type="text" class="form-control" name="name_ingredient" id="name_ingredient" required>
                         </div>
                         <div class="mb-3">
-                            <label for="qty_ingredient" class="form-label">Jumlah</label>
-                            <input type="text" class="form-control" name="qty_ingredient" id="qty_ingredient"
-                                required>
-                        </div>
-                        <div class="mb-3">
                             <label for="unit_ingredient" class="form-label">Satuan</label>
                             <input type="text" class="form-control" name="unit_ingredient" id="unit_ingredient" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="price_ingredient" class="form-label">Harga</label>
-                            <input type="text" class="form-control" name="price_ingredient" id="price_ingredient" required>
                         </div>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-between">
                             <a href="ingredient-index.php" class="btn btn-secondary">Kembali</a>

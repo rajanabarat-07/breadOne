@@ -86,7 +86,6 @@ if (isset($_POST['submit1'])) {
                                     <th>Harga</th>
                                     <th>Jumlah</th>
                                     <th>Sub Total</th>
-                                    <th>Pesan</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -117,7 +116,6 @@ if (isset($_POST['submit1'])) {
                                                     style="max-width: 80px;">
                                             </td>
                                             <td>Rp <?= number_format($row['qty_cart'] * $row['price_product'], 0, ',', '.'); ?></td>
-                                            <td><?= $row['status'] ?></td>
 
                                             <td class="d-flex flex-column gap-1">
                                                 <button type="submit" name="submit1"

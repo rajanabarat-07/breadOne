@@ -34,13 +34,12 @@ $result = mysqli_query($conn, $query);
                         <th>Jumlah Diproduksi</th>
                         <th>Tanggal Produksi</th>
                         <th>Tanggal Kedaluwarsa</th>
-                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if (mysqli_num_rows($result) > 0): ?>
                         <?php $no = 1; while ($row = mysqli_fetch_assoc($result)) : 
-                            $expired = (strtotime($row['date_expired']) < strtotime(date('Y-m-d')));
+                            // $expired = (strtotime($row['date_expired']) < strtotime(date('Y-m-d')));
                         ?>
                         <tr class="text-center <?= $expired ? 'table-danger' : '' ?>">
                             <td><?= $no++ ?></td>
@@ -48,9 +47,6 @@ $result = mysqli_query($conn, $query);
                             <td><?= $row['quantity'] ?></td>
                             <td><?= date('d M Y', strtotime($row['date_production'])) ?></td>
                             <td><?= date('d M Y', strtotime($row['date_expired'])) ?></td>
-                            <td>
-                                <?= $expired ? '<span class="badge bg-danger">Kedaluwarsa</span>' : '<span class="badge bg-success">Aktif</span>' ?>
-                            </td>
                         </tr>
                         <?php endwhile; ?>
                     <?php else: ?>

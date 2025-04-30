@@ -23,7 +23,10 @@ $ingredient = isset($_POST["search"]) ? searchIngredient($search) : getAllIngred
         <!-- Form Pencarian dan Tambah -->
         <div class="d-flex justify-content-between mb-3 mt-3">
             <?php include "../Layout/searchbar.php"; ?>
-            <a href="ingredient-add.php" class="btn btn-primary">Tambahkan Bahan</a>
+            <div class="d-flex">
+                <a href="ingredient-add.php" class="btn btn-primary me-2">Tambahkan Bahan</a>
+                <a href="ingredient-import.php" class="btn btn-success">Import Bahan</a>
+            </div>
             <!-- <a href="ingredient-add-stock.php" class="btn btn-success">Input Stok Bahan</a> -->
         </div>
 
@@ -36,9 +39,8 @@ $ingredient = isset($_POST["search"]) ? searchIngredient($search) : getAllIngred
                             <th>No</th>
                             <th>Id Bahan</th>
                             <th>Nama Bahan</th>
-                            <th>Jumlah</th>
+                            <th>Stock</th>
                             <th>Satuan</th>
-                            <th>Harga</th>
                             <th class="text-center">Aksi</th>
                         </tr>
                     </thead>
@@ -55,7 +57,6 @@ $ingredient = isset($_POST["search"]) ? searchIngredient($search) : getAllIngred
                                 <td>{$row['name_ingredient']}</td>
                                 <td>{$row['qty_ingredient']}</td>
                                 <td>{$row['unit_ingredient']}</td>
-                                <td>{$row['price_ingredient']}/{$row['unit_ingredient']}</td>
                                 <td class='text-center'>
                                     <a href='ingredient-updt.php?id={$row['id_ingredient']}' class='btn btn-sm btn-warning'>Perbarui</a>
                                     <a href='ingredient-del.php?id={$row['id_ingredient']}' onclick='return confirm(\"Apakah Anda yakin ingin menghapus bahan ini?\")' class='btn btn-sm btn-danger'>Hapus</a>

@@ -18,6 +18,14 @@ $rows = mysqli_fetch_assoc($customer);
 	<div class="row">
 		<div class="col-md-6">
 			<h4>Daftar Pesanan</h4>
+			<p>
+				<i style="color: red;">Note:
+					<ol>
+						<li>Pastikan pesanan anda sudah benar</li>
+						<li>Pesanan akan diambil di tempat/toko langsung</li>
+					</ol>
+				</i>
+			</p>
 			<table class="table table-stripped">
 				<tr>
 					<th>No</th>
@@ -50,7 +58,6 @@ $rows = mysqli_fetch_assoc($customer);
 				</tr>
 			</table>
 		</div>
-
 	</div>
 
 	<br>

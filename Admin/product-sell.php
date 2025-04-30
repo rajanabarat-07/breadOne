@@ -14,6 +14,7 @@ $result = mysqli_query($conn, "SELECT * FROM `bo-product`");
   </style>
 </head>
 <body>
+  <?php include '../Layout/sidebar.php'; ?>
   <div class="container mt-5">
     <h3>Form Penjualan Produk (Admin)</h3>
     <div class="row mb-3">
@@ -78,6 +79,11 @@ $result = mysqli_query($conn, "SELECT * FROM `bo-product`");
 <script>
 let cart = [];
 
+function formatRupiah(angka) {
+  return 'Rp ' + angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
+
 function addToCart() {
   const select = document.getElementById('product');
   const id = select.value;
@@ -114,16 +120,16 @@ function updateCartTable() {
     const row = `
       <tr>
         <td>${item.name}<input type="hidden" name="id_product[]" value="${item.id}"></td>
-        <td>Rp ${item.price}</td>
+        <td>${formatRupiah(item.price)}</td>
         <td>${item.qty}<input type="hidden" name="qty[]" value="${item.qty}"></td>
-        <td>Rp ${subtotal}</td>
+        <td>${formatRupiah(subtotal)}</td>
         <td><button type="button" class="btn btn-danger btn-sm" onclick="removeItem(${index})">Hapus</button></td>
       </tr>
     `;
     body.innerHTML += row;
   });
 
-  totalCell.textContent = 'Rp ' + total;
+  totalCell.textContent = formatRupiah(total);
   document.getElementById('data_penjualan').value = JSON.stringify(cart);
 }
 

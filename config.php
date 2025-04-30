@@ -85,12 +85,10 @@
         global $conn;
         $id_ingredient = htmlspecialchars($data["id_ingredient"]);
         $name_ingredient = htmlspecialchars($data["name_ingredient"]);
-        $qty_ingredient = htmlspecialchars($data["qty_ingredient"]);
         $unit_ingredient = htmlspecialchars($data["unit_ingredient"]);
-        $price_ingredient = htmlspecialchars($data["price_ingredient"]);
         
 
-        $query = "INSERT INTO `bo-ingredient` VALUES ('$id_ingredient', '$name_ingredient', '$qty_ingredient', '$unit_ingredient', '$price_ingredient')";
+        $query = "INSERT INTO `bo-ingredient` VALUES ('$id_ingredient', '$name_ingredient', '$unit_ingredient')";
 
         mysqli_query($conn, $query);
 
@@ -407,6 +405,43 @@
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
+    
+    function getAllPengeluaran() {
+        global $conn;
+        $query = mysqli_query($conn, "SELECT bi.*, i.* 
+                                      FROM `bo-ingredient-import` bi 
+                                      JOIN `bo-ingredient` i ON bi.id_ingredient = i.id_ingredient 
+                                      ORDER BY bi.date_import DESC");
+        return mysqli_fetch_all($query, MYSQLI_ASSOC);
+    }
+    
+    
+    function filterPengeluaranByDate($start, $end) {
+        global $conn;
+        $query = mysqli_query($conn, "SELECT * FROM `bo-ingredient-import` WHERE date_import BETWEEN '$start' AND '$end' ORDER BY date_import DESC");
+        return mysqli_fetch_all($query, MYSQLI_ASSOC);
+    }
+    
+    function getAllPenjualan() {
+        global $conn;
+        $query = "SELECT * FROM `bo-income`"; // Ganti dengan nama tabel penjualan kamu
+        $result = mysqli_query($conn, $query);
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+    
+    function getPenjualanByDate($start, $end) {
+        global $conn;
+        $query = "SELECT * FROM `bo-income` WHERE date_income BETWEEN '$start' AND '$end'";
+        $result = mysqli_query($conn, $query);
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+    
+    function getPengeluaranByDate($start, $end) {
+        global $conn;
+        $query = "SELECT * FROM `bo-ingredient-import` WHERE date_import BETWEEN '$start' AND '$end'";
+        $result = mysqli_query($conn, $query);
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
     
 ?>

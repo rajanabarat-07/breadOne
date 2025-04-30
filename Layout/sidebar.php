@@ -56,10 +56,10 @@ if (!isset($_SESSION['name_admin'])) {
                     <a class="nav-link dropdown-toggle" href="" id="akunDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-bar-chart-line"></i> Reports
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="akunDropdown">
-                        <li><a class="dropdown-item" href="report-expense.php"></i>Expense Reports</a></li>
-                        <li><a class="dropdown-item" href="#"></i>Seles Reports</a></li>
-                        <li><a class="dropdown-item" href="#"></i>Income Reports</a></li>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="akunDropdown"> 
+                        <li><a class="dropdown-item" href="report-production.php"></i>Production Reports</a></li>
+                        <li><a class="dropdown-item" href="report-import.php"></i>Import Report</a></li>
+                        <li><a class="dropdown-item" href="report-income.php"></i>Income Reports</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
