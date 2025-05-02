@@ -81,7 +81,7 @@ $product = isset($_POST["search"]) ? searchProducts($_POST["keyword"]) : getAllP
                                         <!-- Button trigger modal -->
                                         <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal"
                                             data-bs-target="#modalDetail<?= $row['id_product']; ?>">
-                                            BOM
+                                            Bahan
                                         </button>
 
                                         <!-- Modal -->
@@ -90,36 +90,39 @@ $product = isset($_POST["search"]) ? searchProducts($_POST["keyword"]) : getAllP
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title">Bill of Material</h5>
+                                                        <h5 class="modal-title">Bahan</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Tutup"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <table class="table table-hover align-middle">
-                                                            <thead class="table-dark text-center">
-                                                                <tr>
-                                                                    <th>No</th>
-                                                                    <th>Nama Bahan</th>
-                                                                    <th>Jumlah</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <?php
-                                                                $result1 = mysqli_query($conn, "SELECT i.name_ingredient, b.require_ingredient, i.unit_ingredient 
-                                                                                                FROM `bo-bom` b JOIN `bo-ingredient` i ON b.id_ingredient=i.id_ingredient 
-                                                                                                WHERE b.id_product = '$id_product'");
-                                                                $no = 1;
-                                                                while ($row1 = mysqli_fetch_assoc($result1)) { ?>
-                                                                    <tr class="text-center">
-                                                                        <td><?= $no; ?></td>
-                                                                        <td><?= htmlspecialchars($row1['name_ingredient']); ?></td>
-                                                                        <td><?= htmlspecialchars($row1['require_ingredient'] . " " . $row1['unit_ingredient']); ?>
-                                                                        </td>
+                                                        <div id="printArea<?= $row['id_product']; ?>">
+                                                            <table class="table table-hover align-middle">
+                                                                <thead class="table-dark text-center">
+                                                                    <tr>
+                                                                        <th>No</th>
+                                                                        <th>Nama Bahan</th>
+                                                                        <th>Jumlah</th>
                                                                     </tr>
-                                                                    <?php $no++;
-                                                                } ?>
-                                                            </tbody>
-                                                        </table>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <?php
+                                                                    $result1 = mysqli_query($conn, "SELECT i.name_ingredient, b.require_ingredient, i.unit_ingredient 
+                                                                                                    FROM `bo-bom` b JOIN `bo-ingredient` i ON b.id_ingredient=i.id_ingredient 
+                                                                                                    WHERE b.id_product = '$id_product'");
+                                                                    $no = 1;
+                                                                    while ($row1 = mysqli_fetch_assoc($result1)) { ?>
+                                                                        <tr class="text-center">
+                                                                            <td><?= $no; ?></td>
+                                                                            <td><?= htmlspecialchars($row1['name_ingredient']); ?></td>
+                                                                            <td><?= htmlspecialchars($row1['require_ingredient'] . " " . $row1['unit_ingredient']); ?>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <?php $no++;
+                                                                    } ?>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <button class="btn btn-sm btn-outline-secondary mt-2" onclick="printBOM('printArea<?= $row['id_product']; ?>')"><i class="bi bi-printer"></i> Print</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -135,6 +138,23 @@ $product = isset($_POST["search"]) ? searchProducts($_POST["keyword"]) : getAllP
             </div>
         </div>
     </div>
+
+    <script>
+    function printBOM(areaId) {
+        var printContents = document.getElementById(areaId).innerHTML;
+        var w = window.open('', '', 'height=600,width=800');
+        w.document.write('<html><head><title>Print BOM</title>');
+        w.document.write('<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">');
+        w.document.write('</head><body>');
+        w.document.write(printContents);
+        w.document.write('</body></html>');
+        w.document.close();
+        w.focus();
+        w.print();
+        w.close();
+    }
+</script>
+
 </body>
 
 </html>
