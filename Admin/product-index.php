@@ -65,7 +65,7 @@ $product = isset($_POST["search"]) ? searchProducts($_POST["keyword"]) : getAllP
                                     <td><?= $row["stock_product"] ?></td>
                                     <td><?= htmlspecialchars($row["name_category"]) ?></td>
                                     <td class='text-center'>
-                                        <a href="product-updt.php?id=<?= $row["id_product"]; ?>"
+                                        <a href="product-info.php?id=<?= $row["id_product"]; ?>"
                                             class="btn btn-sm btn-warning">Perbarui</a>
                                         <a href="product-del.php?id=<?= $row["id_product"]; ?>"
                                             onclick="return confirm('Apakah Anda yakin ingin menghapus produk ini?');"

@@ -59,7 +59,7 @@ if (isset($_SESSION['id_customer'])) {
 <body>
     <!-- Navbar with offcanvas -->
     <nav class="navbar navbar-expand-lg custom-nav">
-        <div class="container-fluid">
+        <div class="container-fluid ms-5">
             <!-- Logo + Brand -->
             <a class="navbar-brand" href="#">
                 <img src="Images/fav.jpg" alt="Logo">
@@ -76,7 +76,7 @@ if (isset($_SESSION['id_customer'])) {
                     <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
-                <div class="offcanvas-body">
+                <div class="offcanvas-body me-5">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                         <li class="nav-item">
                             <a class="nav-link" href="index.php">
@@ -103,28 +103,28 @@ if (isset($_SESSION['id_customer'])) {
                             </a>
                         </li>
 
-                        <?php if (!isset($_SESSION['name_customer'])) { ?>
-                            <li class="nav-item postiiton-static">
-                                <a class="nav-link" href="login.php">
-                                    <i class="bi bi-person-circle"></i> Login
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="register.php">
-                                    <i class="bi bi-person-plus"></i> Register
-                                </a>
-                            </li>
-                        <?php } else { ?>
-                            <li class="nav-item dropdown postiiton-static">
-                                <a class="nav-link dropdown-toggle" href="#" id="akunDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bi bi-person-circle"></i> <?= $_SESSION['name_customer'] ?>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="akunDropdown">
+                        <li class="nav-item dropdown position-static">
+                            <a class="nav-link dropdown-toggle" href="#" id="akunDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person-circle"></i>
+                                <?php
+                                if (isset($_SESSION['name_customer'])) {
+                                    echo $_SESSION['name_customer'];
+                                } else {
+                                    echo "Account";
+                                }
+                                ?>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="akunDropdown">
+                                <?php if (isset($_SESSION['name_customer'])) { ?>
                                     <li><a class="dropdown-item" href="profile.php"><i class="bi bi-gear"></i> Profile</a></li>
                                     <li><a class="dropdown-item" href="logout.php"><i class="bi bi-box-arrow-in-right"></i> Logout</a></li>
-                                </ul>
-                            </li>
-                        <?php } ?>
+                                <?php } else { ?>
+                                    <li><a class="dropdown-item" href="login.php"><i class="bi bi-box-arrow-in-right"></i> Login</a></li>
+                                    <li><a class="dropdown-item" href="register.php"><i class="bi bi-person-plus"></i> Register</a></li>
+                                <?php } ?>
+                            </ul>
+                        </li>
+
                     </ul>
                 </div>
             </div>
@@ -132,7 +132,6 @@ if (isset($_SESSION['id_customer'])) {
     </nav>
 
     <!-- Memastikan Bootstrap Bundle JS dimuat di akhir -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

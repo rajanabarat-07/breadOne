@@ -71,11 +71,6 @@ if (isset($_POST['submit'])) {
                         <input type="text" class="form-control" name="unit_ingredient" id="unit_ingredient" required value="<?= htmlspecialchars($ingredient["unit_ingredient"]) ?>">
                     </div>
 
-                    <div class="mb-3">
-                        <label for="price_ingredient" class="form-label">Harga</label>
-                        <input type="text" class="form-control" name="price_ingredient" id="price_ingredient" required value="<?= htmlspecialchars($ingredient["price_ingredient"]) ?>">
-                    </div>
-
                     <div class="d-grid gap-2 d-md-flex justify-content-md-between">
                         <a href="ingredient-index.php" class="btn btn-secondary">Kembali</a>
                         <button type="submit" class="btn btn-primary" name="submit">Perbarui Produk</button>

@@ -28,28 +28,32 @@ if (isset($_POST["search"])) {
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        body {
-            background-color: #fdf6e3 !important;
-            text-align: center;
-            font-family: 'Fredoka One', cursive;
-            overflow-x: hidden;
-        }
+    body {
+        background-color: #fdf6e3 !important;
+        text-align: center;
+        font-family: 'Fredoka One', cursive;
+        overflow-x: hidden;
+    }
 
-        .text-multiline-truncate {
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            height: 2.8em;
-            line-height: 1.4em;
-        }
+    .text-multiline-truncate {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 2.8em;
+        line-height: 1.4em;
+    }
 
-        .card:hover {
-            transform: scale(1.05);
-            transition: all 0.1s ease-in-out;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-    </style>
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+    }
+</style>
+
 </head>
 
 <body>
