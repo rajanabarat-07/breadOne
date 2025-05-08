@@ -1,0 +1,13 @@
+{
+    "name": "helmihutabarat/breadone",
+    "description": "Website Toko Roti Bread One dengan PHP Native dan Midtrans",
+    "authors": [
+        {
+            "name": "rajanabarat-07",
+            "email": "helmitiohutabarat@gmail.com"
+        }
+    ],
+    "require": {
+        "midtrans/midtrans-php": "^2.6"
+    }
+}
