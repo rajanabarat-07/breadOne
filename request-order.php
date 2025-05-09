@@ -1,36 +1,8 @@
 <?php 
 include "config.php";
-
 $id_customer = mysqli_real_escape_string($conn,$_GET['id_customer']);
 $customer = mysqli_query($conn, "SELECT * FROM `bo-customer` WHERE id_customer = '$id_customer'");
 $rows = mysqli_fetch_assoc($customer);
-
-require_once 'vendor/autoload.php';
-
-\Midtrans\Config::$serverKey = 'SB-Mid-server-5f0agzIE4Rpm3TVWp1HGSx4I';
-\Midtrans\Config::$isProduction = false;
-\Midtrans\Config::$isSanitized = true;
-\Midtrans\Config::$is3ds = true;
-
-// Hitung total belanjaan
-$hasil = 0;
-$cart = mysqli_query($conn, "SELECT * FROM `bo-cart` WHERE id_customer = '$id_customer'");
-while($row = mysqli_fetch_assoc($cart)) {
-    $subtotal = $row['price_cart'] * $row['qty_cart'];
-    $hasil += $subtotal;
-}
-
-$params = array(
-    'transaction_details' => array(
-        'order_id' => 'BREAD-' . time(), // unik
-        'gross_amount' => $hasil,
-    ),
-    'customer_details' => array(
-        'first_name' => $rows['name_customer'],
-    ),
-);
-
-$snapToken = \Midtrans\Snap::getSnapToken($params);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -89,41 +61,12 @@ $snapToken = \Midtrans\Snap::getSnapToken($params);
 	</div>
 
 	<br>
-	<!-- Tombol bayar -->
-<button id="pay-button" class="btn btn-success"><i class="glyphicon glyphicon-shopping-cart"></i> Bayar Sekarang</button>
-<a href="cart.php" class="btn btn-danger">Cancel</a>
-
-<form id="order-form" action="proses/order.php" method="POST" style="display: none;">
-    <input type="hidden" name="id_customer" value="<?= $id_customer; ?>">
-    <input type="hidden" name="order_id" id="order-id">
-    <input type="hidden" name="status_pembayaran" id="status-pembayaran">
-</form>
-
+	<form action="proses/order.php" method="POST">
+        <input type="hidden" name="id_customer" value="<?= $id_customer; ?>">
+		<button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-shopping-cart"></i> Order Sekarang</button>
+		<a href="cart.php" class="btn btn-danger">Cancel</a>
+	</form>
 </div>    
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-26NtNHGdophHJxY4"></script>
-<script type="text/javascript">
-document.getElementById('pay-button').addEventListener('click', function () {
-    snap.pay('<?= $snapToken ?>', {
-        onSuccess: function(result){
-            // Pembayaran sukses
-            document.getElementById('order-id').value = result.order_id;
-            document.getElementById('status-pembayaran').value = result.transaction_status;
-            document.getElementById('order-form').submit();
-        },
-        onPending: function(result){
-            // Masih menunggu pembayaran
-            document.getElementById('order-id').value = result.order_id;
-            document.getElementById('status-pembayaran').value = result.transaction_status;
-            document.getElementById('order-form').submit();
-        },
-        onError: function(result){
-            alert("Pembayaran gagal!");
-            console.log(result);
-        }
-    });
-});
-</script>
-
 </body>
 </html>
