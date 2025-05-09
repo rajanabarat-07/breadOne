@@ -235,7 +235,7 @@ if (isset($_POST['submit1'])) {
                                     </td>
                                     <td>
                                         <?php if ($status === 'Menunggu Pembayaran') : ?>
-                                            <a href="proses/pay.php?inv=<?= $invoice; ?>" class="btn btn-sm btn-primary">Bayar Sekarang</a>
+                                            <a href="snap.php?inv=<?= $invoice; ?>" class="btn btn-sm btn-primary">Bayar Sekarang</a>
                                         <?php endif; ?>
                                     </td>
                                 </tr>

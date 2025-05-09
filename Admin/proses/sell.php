@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Simpan ke bo_sales
-    $insert_sales = "INSERT INTO bo_sales (tanggal, total) VALUES ('$tanggal', '$total')";
+    $insert_sales = "INSERT INTO bo_sales  VALUES ('', '$tanggal', '$total')";
     mysqli_query($conn, $insert_sales);
     $id_sales = mysqli_insert_id($conn); // Ambil ID penjualan terbaru
 

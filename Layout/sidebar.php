@@ -56,9 +56,9 @@ if (!isset($_SESSION['name_admin'])) {
                         data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-bar-chart-line"></i> Reports
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="akunDropdown"> 
-                        <li><a class="dropdown-item" href="report-production.php"></i>Production Reports</a></li>
-                        <li><a class="dropdown-item" href="report-import.php"></i>Import Report</a></li>
                         <li><a class="dropdown-item" href="report-income.php"></i>Income Reports</a></li>
+                        <li><a class="dropdown-item" href="report-cost.php"></i>Cost Report</a></li>
+                        <li><a class="dropdown-item" href="report-profit.php"></i>Profit Reports</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
