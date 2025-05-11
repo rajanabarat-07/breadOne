@@ -83,6 +83,9 @@
                 referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </div>
+
+    <?php include "Layout/footer.php"; ?>
+    
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 

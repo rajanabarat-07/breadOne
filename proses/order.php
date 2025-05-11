@@ -34,13 +34,15 @@ while($row = mysqli_fetch_assoc($cart)){
     $date_cart = date('Y-m-d H:i:s');
 
     // Sesuaikan status pesanan berdasarkan status dari Midtrans
-    if ($status_pembayaran == 'settlement') {
-        $status = "Menunggu Konfirmasi Pesanan";
-    } elseif ($status_pembayaran == 'pending') {
-        $status = "Menunggu Pembayaran";
-    } else {
-        $status = "Gagal atau Dibatalkan";
-    }
+    // if ($status_pembayaran == 'settlement') {
+    //     $status = "Menunggu Konfirmasi Pesanan";
+    // } elseif ($status_pembayaran == 'pending') {
+    //     $status = "Menunggu Pembayaran";
+    // } else {
+    //     $status = "Gagal atau Dibatalkan";
+    // }
+
+    $status = "Menunggu Konfirmasi Pesanan";
 
     $insert = mysqli_query($conn, "INSERT INTO `bo-order` 
         VALUES ('', '$format', '$id_customer', '$id_product', '$name_product', '$qty_cart', '$price_cart', '$status', '$date_cart')");
@@ -53,7 +55,7 @@ while($row = mysqli_fetch_assoc($cart)){
 
 echo "
 <script>
-alert('Pesanan Anda telah diproses dengan status: $status_pembayaran');
+alert('Pesanan Anda telah diproses dengan status: $status');
 window.location = '../cart.php';
 </script>
 ";
