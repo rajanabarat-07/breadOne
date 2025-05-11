@@ -2,4 +2,4 @@
 
 Ini adalah contoh README yang menyertakan gambar.
 
-![Logo Project](images/fav.jpg)
+![Logo Project](Images/fav.jpg)
