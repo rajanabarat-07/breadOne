@@ -102,9 +102,9 @@ if (isset($_POST["filter"])) {
             <table class="table table-bordered">
                 <colgroup>
                     <col style="width: 5%;">
-                    <col style="width: 35%;">
+                    <col style="width: 25%;">
                     <col style="width: 30%;">
-                    <col style="width: 30%;">
+                    <col style="width: 40%;">
                 </colgroup>
 
                 <thead class="table-secondary text-center">
@@ -154,9 +154,9 @@ if (isset($_POST["filter"])) {
             <table class="table table-bordered">
                 <colgroup>
                     <col style="width: 5%;">
-                    <col style="width: 35%;">
+                    <col style="width: 25%;">
                     <col style="width: 30%;">
-                    <col style="width: 30%;">
+                    <col style="width: 40%;">
                 </colgroup>
 
                 <thead class="table-secondary text-center">
@@ -212,15 +212,12 @@ if (isset($_POST["filter"])) {
                 $totalKeseluruhan += $row2["total"];
             }
             ?>
-            <div class="mt-4">
+            <div class="mt-4 mb-5">
                 <div class="mt-4 d-flex justify-content-between align-items-center total-keseluruhan"
                     style="font-size: 1.5rem; font-weight: bold;">
                     <div class="text-start text-uppercase">Total Penjualan Keseluruhan</div>
                     <div>Rp <?= number_format($totalKeseluruhan, 0, ',', '.') ?></div>
                 </div>
-
-
-
             </div>
         </div>
 </body>

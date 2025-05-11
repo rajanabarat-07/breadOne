@@ -8,6 +8,7 @@ if (isset($_POST["filter"])) {
     $pengeluaran = filterPengeluaranByDate($start, $end); // Buat fungsi ini di config.php
 } else {
     $pengeluaran = getAllPengeluaran();
+    $cost = getAllCost();
 }
 ?>
 
@@ -20,7 +21,8 @@ if (isset($_POST["filter"])) {
     <title>Laporan Pengeluaran</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .table th, .table td {
+        .table th,
+        .table td {
             vertical-align: middle;
             font-size: 14px;
         }
@@ -94,10 +96,14 @@ if (isset($_POST["filter"])) {
                 <tbody>
                     <?php if (empty($pengeluaran)): ?>
                         <tr>
-                            <td colspan="4" class="text-center text-danger">Tidak ada data ditemukan</td>
+                            <td colspan="5" class="text-center text-danger">Tidak ada data ditemukan</td>
                         </tr>
                     <?php else: ?>
-                        <?php $i = 1; $totalPengeluaran = 0; ?>
+                        <tr>
+                            <td colspan="5" class="text-Start fw-bold" style="padding-left: 100px;">A. Import Bahan</td>
+                        </tr>
+                        <?php $i = 1;
+                        $totalPengeluaran = 0; ?>
                         <?php foreach ($pengeluaran as $row): ?>
                             <tr>
                                 <td class="text-center"><?= $i ?></td>
@@ -106,11 +112,38 @@ if (isset($_POST["filter"])) {
                                 <td>Rp <?= number_format($row["price"], 0, ',', '.') ?></td>
                                 <td><?= htmlspecialchars($row["date_import"]) ?></td>
                             </tr>
-                            <?php 
-                                $i++; 
-                                $totalPengeluaran += $row["price"];
+                            <?php
+                            $i++;
+                            $totalPengeluaran += $row["price"];
                             ?>
                         <?php endforeach; ?>
+
+                        <?php if (empty($cost)): ?>
+                            <tr>
+                                <td colspan="5" class="text-center text-danger">Tidak ada data ditemukan</td>
+                            </tr>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="5" class="text-Start fw-bold" style="padding-left: 100px;">B. Lainnya</td>
+                            </tr>
+                            <?php $j = 1; ?>
+                            <?php foreach ($cost as $row): ?>
+                                <tr>
+                                    <td class="text-center"><?= $i ?></td>
+                                    <td><?= htmlspecialchars($row["name_cost"]) ?></td>
+                                    <td class="text-center"><?= htmlspecialchars($row["qty_cost"]) ?></td>
+                                    <td>Rp <?= number_format($row["price_cost"], 0, ',', '.') ?></td>
+                                    <td><?= htmlspecialchars($row["date_cost"]) ?></td>
+                                </tr>
+                                <?php
+                                $i++;
+                                $totalPengeluaran += $row["price_cost"];
+                                ?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+
+
+                        <!-- Untuk Total Pengeluaran -->
                         <tr>
                             <td colspan="3" class="text-end fw-bold">Total Pengeluaran</td>
                             <td class="fw-bold">Rp <?= number_format($totalPengeluaran, 0, ',', '.') ?></td>

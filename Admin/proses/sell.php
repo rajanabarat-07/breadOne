@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit;
     }
 
-    $tanggal = date('Y-m-d');
+    $tanggal = date('Y-m-d H:i:s');
     $total = 0;
 
     // Hitung total penjualan

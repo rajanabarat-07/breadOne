@@ -49,6 +49,7 @@ if (!isset($_SESSION['name_admin'])) {
                         <li><a class="dropdown-item" href="category-index.php"></i>Category</a></li>
                         <li><a class="dropdown-item" href="ingredient-index.php"></i>Ingredient</a></li>
                         <li><a class="dropdown-item" href="order-index.php"></i>Order</a></li>
+                        <li><a class="dropdown-item" href="cost-add.php"></i>Cost</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">

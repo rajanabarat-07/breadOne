@@ -13,6 +13,7 @@ if (isset($_POST["filter"])) {
     $expense = getAllExpense();
     $pengeluaran = getAllPengeluaran();
     $income = getAllIncome();
+    $cost = getAllCost();
 }
 ?>
 
@@ -135,6 +136,9 @@ if (isset($_POST["filter"])) {
         $totalPengeluaran = 0;
         foreach ($pengeluaran as $p) {
             $totalPengeluaran += $p["price"];
+        }
+        foreach ($cost as $c) {
+            $totalPengeluaran += $c["price_cost"];
         }
 
         $keuntungan = $totalKeseluruhan - $totalPengeluaran;

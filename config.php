@@ -495,4 +495,21 @@ function getPengeluaranByDate($start, $end)
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 
+function getAllCost()
+{
+    global $conn;
+    $query = "SELECT * FROM `bo-report-cost`";
+    $result = mysqli_query($conn, $query);
+    return mysqli_fetch_all($result, MYSQLI_ASSOC);
+}
+
+
+function getCostByDate($start, $end)
+{
+    global $conn;
+    $query = "SELECT * FROM `bo-report-cost` WHERE date_cost BETWEEN '$start' AND '$end'";
+    $result = mysqli_query($conn, $query);
+    return mysqli_fetch_all($result, MYSQLI_ASSOC);
+}
+
 ?>
