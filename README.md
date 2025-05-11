@@ -11,10 +11,10 @@
 ![Home](Images/Home.png)
 
 ### Tampilan Daftar Produk
-![Detail](Images/Detail Product.png)
+![Detail](Images/Product.png)
 
 ### Tampilan Order
 ![Order](Images/Order.png)
 
 ### Tampilan Pembayaran Dengan QRIS
-![QRIS](Images/Pembayaran dengan QRIS.png)
+![QRIS](Images/QRIS.png)
